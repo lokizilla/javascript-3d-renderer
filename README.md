@@ -14,5 +14,5 @@ The main logic is stored in `main.js`, with the Sylvester math library providing
 
 Credits
 =======
->**Sylvester math library**: https://github.com/jcoglan/sylvester *(MIT license)*
+>**Sylvester math library**: https://github.com/jcoglan/sylvester *(MIT license)*  
 >**requestAnimationFrame shim**: http://www.paulirish.com/2011/requestanimationframe-for-smart-animating/ *(CC0 license)*
