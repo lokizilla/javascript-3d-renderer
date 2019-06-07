@@ -14,7 +14,7 @@ var flag_debug = false; // output console logs
 var flag_debug_verbose = false; // debug verbosely *WARNING: LOTS OF CONSOLE OUTPUT*
 var flag_trigger_debugger = false; // trigger the webkit debugger at each loop of animate()
 var flag_trigger_debugger_verbose = false; // trigger the webkit debugger at each stage of the pipeline
-var flag_wireFrame = true; // wireframe on / off
+var flag_wireFrame = false; // wireframe on / off
 var flag_backFace = true; // backface culling on / off
 var flag_flatShading = true; // flat shading on / off
 // --- canvas elements
@@ -30,7 +30,14 @@ var framesRenderedTotal = 0;
 var totalCubes = 100; // total number of cubes in scene
 // cube contains 12 polygons from 8 vertices // index data is based on these 8 vertices 
 // position data is relative from origin at centre of cube, (0, 0, 0)
-var scale = 1000; // scale factor
+var scale = 500; // scale factor
+// --- define scene size
+var sceneXMAX = 20000;
+var sceneXMIN = -20000;
+var sceneYMAX = 20000;
+var sceneYMIN = -20000;
+var sceneZMAX = 36000;
+var sceneZMIN = 13000;
 
 // vertex data
 var cubeVertexData = [
@@ -108,9 +115,9 @@ function setUpAnimation() {
 		cubes.push({
 			polygon: [], // filled below
 			position: /*{x: 0, y: 0, z: 0},*/ {
-				x: getRandomInt(-20000, 20000),
-				y: getRandomInt(-20000, 20000),
-				z: getRandomInt(13000, 36000)
+				x: getRandomInt(sceneXMIN, sceneXMAX),
+				y: getRandomInt(sceneYMIN, sceneYMAX),
+				z: getRandomInt(sceneZMIN, sceneZMAX)
 			},
 			rotation: /*{x: 0, y: 0, z: 0},*/ {
 				x: getRandomInt(-1000, 1000),
@@ -132,9 +139,14 @@ function setUpAnimation() {
 				currentVert1: Sylvester.Vector.create([0, 0, 0, 1]),
 				currentVert2: Sylvester.Vector.create([0, 0, 0, 1]), // vertex data
 				active: true, // used in backface culling
-				colour: 'rgba(' + getRandomInt(30, 128) + ', ' + getRandomInt(30, 128) + ', ' + getRandomInt(30, 128) + ', 1)', // face colour
+				colour: [],
 				normal: Sylvester.Vector.create([0, 0, 0]) // normal, useful later in pipeline
 			});
+
+			cubes[index].polygon[index2].colour.red = getRandomInt(30, 128);
+			cubes[index].polygon[index2].colour.blue = getRandomInt(30, 128);
+			cubes[index].polygon[index2].colour.green = getRandomInt(30, 128);
+			cubes[index].polygon[index2].colour.alpha = getRandomInt(30, 128);
 		}
 	}
 
@@ -901,6 +913,8 @@ function update() {
 		cubes[index].rotation.x = cubes[index].rotation.x + 0.006;
 		cubes[index].rotation.y = cubes[index].rotation.y + 0.012;
 		cubes[index].rotation.z = cubes[index].rotation.z + 0.018;
+
+		//cubes[index].colour
 	}
 
 	// debug: give the camera some movement
@@ -944,25 +958,26 @@ function draw() {
 	ctx.strokeStyle = "rgb(255, 255, 255)";
 
 	// draw dependent on flags:
-	if (flag_wireFrame == true) {
-		for (index = 0; index < totalCubes; index++) // for all cubes:
+	for (index = 0; index < totalCubes; index++) // for all cubes:
+	{
+		for (index2 = 0; index2 < 12; index2++) // for all polys:
 		{
-			for (index2 = 0; index2 < 12; index2++) // for all polys:
+			ctx.beginPath(); // begin line
+			if (cubes[index].polygon[index2].active == true) // if poly active:
 			{
-				ctx.beginPath(); // begin line
-				if (cubes[index].polygon[index2].active == true) // if poly active:
-				{
-					ctx.moveTo(cubes[index].polygon[index2].currentVert0.elements[0], cubes[index].polygon[index2].currentVert0.elements[1]);
-					ctx.lineTo(cubes[index].polygon[index2].currentVert1.elements[0], cubes[index].polygon[index2].currentVert1.elements[1]);
-					ctx.lineTo(cubes[index].polygon[index2].currentVert2.elements[0], cubes[index].polygon[index2].currentVert2.elements[1]);
-					ctx.lineTo(cubes[index].polygon[index2].currentVert0.elements[0], cubes[index].polygon[index2].currentVert0.elements[1]);
-					ctx.stroke(); // commit drawing of line to screen
+				ctx.moveTo(cubes[index].polygon[index2].currentVert0.elements[0], cubes[index].polygon[index2].currentVert0.elements[1]);
+				ctx.lineTo(cubes[index].polygon[index2].currentVert1.elements[0], cubes[index].polygon[index2].currentVert1.elements[1]);
+				ctx.lineTo(cubes[index].polygon[index2].currentVert2.elements[0], cubes[index].polygon[index2].currentVert2.elements[1]);
+				ctx.lineTo(cubes[index].polygon[index2].currentVert0.elements[0], cubes[index].polygon[index2].currentVert0.elements[1]);
 
-					if (flag_flatShading == true) // if flat shading active:
-					{
-						ctx.fillStyle = cubes[index].polygon[index2].colour;
-						ctx.fill();
-					}
+				if (flag_wireFrame == true) {
+					ctx.stroke(); // commit drawing of line to screen
+				}
+
+				if (flag_flatShading == true) // if flat shading active:
+				{
+					ctx.fillStyle = "rgba(" + cubes[index].polygon[index2].colour.red + ", " + cubes[index].polygon[index2].colour.green + ", " + cubes[index].polygon[index2].colour.blue + ", " + cubes[index].polygon[index2].colour.alpha + ")"; //cubes[index].polygon[index2].colour;
+					ctx.fill();
 				}
 			}
 		}

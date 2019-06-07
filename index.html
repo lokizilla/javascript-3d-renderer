@@ -2,58 +2,61 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> 
-<html class="no-js"> <!--<![endif]-->
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
 
-		<!-- begin CSS -->
-		<style> 
-			body {
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+	<!-- begin CSS -->
+	<style>
+		body {
 			height: 100%;
 			margin: 0;
 			background-repeat: no-repeat;
 			background-attachment: fixed;
 			background: #000000;
-			}
+		}
 
-			html {
-				height: 100%;
-			}
+		html {
+			height: 100%;
+		}
 
-			body {
-				overflow: hidden;
-			}
+		body {
+			overflow: hidden;
+		}
 
-			#backgroundvas{
-				position: absolute; 
-				left: 0; 
-				top: 0;
-				overflow: hidden; 
-				z-index: -100;
-			}
-		</style>
-		<!-- end CSS-->
+		#backgroundvas {
+			position: absolute;
+			left: 0;
+			top: 0;
+			overflow: hidden;
+			z-index: -100;
+		}
+	</style>
+	<!-- end CSS-->
 
-		<!-- Modernizr -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
-	</head>
+	<!-- Modernizr -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+</head>
 
-	<body>
-		<!--[if lt IE 7]><p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p><![endif]-->
+<body>
+	<!--[if lt IE 7]><p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p><![endif]-->
 
-		<!-- Background canvas -->
-		<canvas id="backgroundvas"></canvas>
+	<!-- Background canvas -->
+	<canvas id="backgroundvas"></canvas>
 
-		<!-- Grab Google CDN's jQuery; fall back to local if offline -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<!-- Grab Google CDN's jQuery; fall back to local if offline -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
 
-		<!-- local js -->
-		<!--<script src="math.js"></script>-->
-		<script src="sylvester/sylvester.js"></script>
-		<script src="sylvester/matrix.js"></script>
-		<script src="sylvester/vector.js"></script>
-		<script src="main.js"></script>
-	</body>
+	<!-- local js -->
+	<!--<script src="math.js"></script>-->
+	<script src="sylvester/sylvester.js"></script>
+	<script src="sylvester/matrix.js"></script>
+	<script src="sylvester/vector.js"></script>
+	<script src="main.js"></script>
+</body>
+
 </html>
